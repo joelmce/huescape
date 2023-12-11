@@ -9,6 +9,7 @@ export default function GradientCanvas() {
     const [history, setHistory] = useState([generateMeshGradient(ELEMENTS)])
     const [index, setIndex] = useState(0)
     const [copied, setCopied] = useState(false)
+    const [currentGradient, updateCurrentGradient] = useState(history[index])
 
     const handleNewGradient = () => {
         setIndex(history.length)
@@ -16,7 +17,7 @@ export default function GradientCanvas() {
     }
 
     const handleCopy = () => {
-        navigator.clipboard.writeText("")
+        navigator.clipboard.writeText(currentGradient.backgroundImage.toString())
         setCopied(true)
         setTimeout(() => {
             setCopied(false)
