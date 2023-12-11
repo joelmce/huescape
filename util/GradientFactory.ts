@@ -1,3 +1,7 @@
+/**
+ * @todo need to add comments to these functions
+ */
+
 const randomColour = (): number => {
     return Math.round(Math.random() * 360)
 }
@@ -83,7 +87,7 @@ const generateGradient = (length: number, colours: string[], hash?: number) => {
             hash ? getHashPercentage(i, hash, length) : getPercentage(i)
         }% ${hash ? getHashPercentage(i * 10, hash, length) : getPercentage(i * 10)}%, ${
             colours[i]
-        } 0px, transparent 55%)\n`
+        } 0px, transparent 55%)`
     })
 }
 
@@ -91,7 +95,7 @@ const generateStops = (length: number, base?: number, hash?: number) => {
     const colours = generateColours(length, base ? base : randomColour())
 
     const properties = generateGradient(length, colours, hash ? hash : undefined)
-    return [colours[0], properties.join(",")]
+    return [colours[0], properties.join(", \n")]
 }
 
 const generateMeshGradient = (
