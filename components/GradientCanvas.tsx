@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react"
-import { generateMeshGradient } from "../util/ColorFactory"
+import { generateMeshGradient } from "../util/GradientFactory"
 import { Copy, RefreshCw, Check } from "react-feather";
 
 const ELEMENTS = 6
