@@ -63,8 +63,8 @@ export default function GradientCanvas() {
                 </div>
 
                 <section className="block mt-10 grid grid-cols-5 gap-2 w-full grid-wrap justify-center">
-                    {history.map(() => {
-                        return <History gradient={history[index]}/>
+                    {history.map((_, i) => {
+                        return <History key={i} gradient={history[index]}/>
                     })}
                 </section>
 
