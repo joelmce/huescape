@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { generateMeshGradient } from "../util/GradientFactory"
 import { RefreshCw, Eye, EyeOff, Code } from "react-feather";
 import { CopyBlock, dracula } from "react-code-blocks";
+import History from "./History";
 
 const ELEMENTS = 6
 
@@ -18,13 +19,12 @@ export default function GradientCanvas() {
         updateCurrentGradient(history[index].backgroundImage)
     }
 
+    console.log(history[index])
+
     const handleCopy = () => {
         setShowCode(!showCode)
+        
     }
-
-    useEffect(() => {
-        handleNewGradient()
-    }, [])
 
     return (
         <>
@@ -33,7 +33,7 @@ export default function GradientCanvas() {
                 style={history[index]}
             />
             
-            <div className="flex flex-row gap-2">
+            <div className="flex flex-col gap-2">
                 
                 <div className="flex flex-col gap-5 w-96 h-96">
                     {!showCode ? 
@@ -58,11 +58,15 @@ export default function GradientCanvas() {
                         >
                             <RefreshCw size={15} className="inline"/> Generate
                         </button>
-
-                            
                         <Code size={15} className={`cursor-pointer ${showCode ? 'text-green-500' : ''}`} onClick={handleCopy}> Show Code </Code>
                     </div>
                 </div>
+
+                <section className="block mt-10 grid grid-cols-5 gap-2 w-full grid-wrap justify-center">
+                    {history.map(() => {
+                        return <History gradient={history[index]}/>
+                    })}
+                </section>
 
             </div>
             
