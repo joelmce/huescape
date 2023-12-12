@@ -83,7 +83,8 @@ const generateColours = (length: number, initialHue: number): string[] => {
 
 const generateGradient = (length: number, colours: string[], hash?: number) => {
     return Array.from({ length}, (_, i) => {
-        return `radial-gradient(at ${
+      // Cheesy indentation
+        return `     radial-gradient(at ${
             hash ? getHashPercentage(i, hash, length) : getPercentage(i)
         }% ${hash ? getHashPercentage(i * 10, hash, length) : getPercentage(i * 10)}%, ${
             colours[i]
