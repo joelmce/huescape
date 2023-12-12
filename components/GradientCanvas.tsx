@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from "react"
 import { generateMeshGradient } from "../util/GradientFactory"
-import { RefreshCw, Clipboard } from "react-feather";
+import { RefreshCw, Eye, EyeOff, Code } from "react-feather";
 import { CopyBlock, dracula } from "react-code-blocks";
 
 const ELEMENTS = 6
@@ -18,7 +18,7 @@ export default function GradientCanvas() {
         updateCurrentGradient(history[index].backgroundImage)
     }
 
-    const handleCopy = (e: React.MouseEvent) => {
+    const handleCopy = () => {
         setShowCode(!showCode)
     }
 
@@ -32,8 +32,9 @@ export default function GradientCanvas() {
                 className='absolute w-[300px] h-[500px] md:w-[800px] md:h-[700px] mt-64 opacity-[16%] backdrop-blur-3xl blur-3xl pointer-events-none rounded-[15rem]'
                 style={history[index]}
             />
-
+            
             <div className="flex flex-row gap-2">
+                
                 <div className="flex flex-col gap-5 w-96 h-96">
                     {!showCode ? 
                         <div
@@ -43,18 +44,24 @@ export default function GradientCanvas() {
                             text={"canvas {\n" + currentGradient + " \n} "}
                             language={"css"}
                             showLineNumbers={false}
+                            wrapLongLines
                             theme={dracula}
-                            codeBlock
+                            customStyle={{height: '100%', width: '100%', overflowY: 'scroll'}}
                         />
 
                         }
-                        <Clipboard onClick={handleCopy} className="absolute z-20"/>
-                    <button
-                        onMouseDownCapture={() => handleNewGradient()}
-                        className='z-10 transition text-tertiary hover:text-sky-500 text-white text-sm bg-black w-fit py-2 px-2 rounded-xl'
-                    >
-                        <RefreshCw size={15} className="inline"/> Generate
-                    </button>
+                    <div className="flex justify-between">
+                        <button
+                            onClick={() => handleNewGradient()}
+                            className='z-10 transition text-tertiary hover:text-sky-500 text-blue-600 text-sm w-fit rounded-xl'
+                            disabled={showCode ? true : false}
+                        >
+                            <RefreshCw size={15} className="inline"/> Generate
+                        </button>
+
+                            
+                        <Code size={15} className={`cursor-pointer ${showCode ? 'text-green-500' : ''}`} onClick={handleCopy}> Show Code </Code>
+                    </div>
                 </div>
 
             </div>
