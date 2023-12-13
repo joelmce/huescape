@@ -19,11 +19,14 @@ export default function GradientCanvas() {
         updateCurrentGradient(history[index].backgroundImage)
     }
 
-    console.log(history[index])
+    const handleSwap = (i: number) => {
+        setIndex(i)
+        updateCurrentGradient(history[i].backgroundImage)
+    }
+
 
     const handleCopy = () => {
         setShowCode(!showCode)
-        
     }
 
     return (
@@ -58,13 +61,13 @@ export default function GradientCanvas() {
                         >
                             <RefreshCw size={15} className="inline"/> Generate
                         </button>
-                        <Code size={15} className={`cursor-pointer ${showCode ? 'text-green-500' : ''}`} onClick={handleCopy}> Show Code </Code>
+                        <Code size={20} className={`cursor-pointer ${showCode ? 'text-green-500' : ''}`} onClick={handleCopy}> Show Code </Code>
                     </div>
                 </div>
 
                 <section className="block mt-10 grid grid-cols-5 gap-2 w-full grid-wrap justify-center">
                     {history.map((_, i) => {
-                        return <History key={i} gradient={history[i]}/>
+                        return <History key={i} gradient={history[i]} onClick={() => handleSwap(i)}/>
                     })}
                 </section>
 
