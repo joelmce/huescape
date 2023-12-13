@@ -64,7 +64,7 @@ export default function GradientCanvas() {
 
                 <section className="block mt-10 grid grid-cols-5 gap-2 w-full grid-wrap justify-center">
                     {history.map((_, i) => {
-                        return <History key={i} gradient={history[index]}/>
+                        return <History key={i} gradient={history[i]}/>
                     })}
                 </section>
 
