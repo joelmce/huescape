@@ -13,7 +13,14 @@ const getPercentage = (v: number): number => {
 // Credit: https://gist.github.com/xenozauros/f6e185c8de2a04cdfecf
 const hexToHSL = (hex?: string): number | undefined => {
     if (!hex) return undefined;
+
+    /* If the hex starts with a # then we remove it before continuing */
     hex = hex.replace(/#/g, "");
+
+    /**
+     * This is to ensure we have a 6 letter hex string.
+     * Example: 123 -> 112233
+     */
     if (hex.length === 3) {
       hex = hex
         .split("")
@@ -22,34 +29,72 @@ const hexToHSL = (hex?: string): number | undefined => {
         })
         .join("");
     }
-    var result = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})[\da-z]{0,0}$/i.exec(hex);
+
+    /* Break down the hex string into RGB components */
+    let result = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})[\da-z]{0,0}$/i.exec(hex);
     if (!result) {
       return undefined;
     }
-    var r = parseInt(result[1], 16);
-    var g = parseInt(result[2], 16);
-    var b = parseInt(result[3], 16);
+
+    /* Make into decimal values */
+    let r = parseInt(result[1], 16);
+    let g = parseInt(result[2], 16);
+    let b = parseInt(result[3], 16);
+
+    /* Normalise values to the range 0 and 1 */
     (r /= 255), (g /= 255), (b /= 255);
-    var max = Math.max(r, g, b),
-      min = Math.min(r, g, b);
-    var h = (max + min) / 2;
+
+    /* To find the dominant and weakest RGB value */
+    let max = Math.max(r, g, b), min = Math.min(r, g, b);
+
+    /* Find the average */
+    let h = (max + min) / 2;
+
+    /* 
+     * The "fun" part. Here it's calculating the hue based on dominant RGB component.
+     * Once we have the dominate colour, we use that as the primary colour. This is 
+     * important to make some beautiful palettes. The other colour components will 
+     * have similar hues, so we adjust the colour accordingly.
+     */
     if (max == min) {
       h = 0;
     } else {
-      var d = max - min;
+      let d = max - min;
       switch (max) {
+
+        /*
+         * The addition of 6 if g < b means it wraps around the colour wheel (so it's
+         * calculated in the range[0, 6] 
+         */
         case r:
           h = (g - b) / d + (g < b ? 6 : 0);
           break;
+
+        /*
+         * This considers the difference between blue (b) and red (r) components and 
+         * adds 2 to the result.
+         */
         case g:
           h = (b - r) / d + 2;
           break;
+
+        /*
+         * This considers the difference between red (r) and green (g) components and 
+         * adds 4 to the result.
+         */      
         case b:
           h = (r - g) / d + 4;
           break;
       }
-      h /= 6;
+      h /= 6; // Normalise to HSL range betwee 0 - 1
     }
+
+    /*
+     * Think colour wheel. Reference: 
+     * https://simple.wikipedia.org/wiki/Color_wheel
+     * So we get the hue value (example 0.75) and we multiply
+     * by 360 degrees (resulting in 270).
+     */
     h = Math.round(360 * h);
   
     return h;
