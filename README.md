@@ -17,5 +17,3 @@ Huescape is a user-friendly tool that simplifies the process of creating mesh gr
 3. Download your gradient as an image for use in graphic design projects.
    
 Acknowledgments
-Huescape was inspired by the need for a simple and efficient tool for mesh gradient creation.
-Special thanks to the open-source community for providing valuable resources and inspiration.
