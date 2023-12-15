@@ -6,6 +6,8 @@ Huescape is a user-friendly tool that simplifies the process of creating mesh gr
 ## Features
 - Mesh Gradient Generation: Quickly create mesh gradients with customizable color stops.
 - CSS Code Export: Copy the generated CSS code for easy implementation in your stylesheets.
+
+## Planned
 - Customizable Color Stops: Tailor the number of color stops in your gradient to achieve the perfect transition.
 - Sharable Colors: Share your color schemes with others through easily accessible links.
 - Fuzzy Filter: Add a fuzzy filter to your gradients for a unique and artistic touch.
